@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+th:replace="~{layout/template :: layout(~{::body/content()})}">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>User Signup</title>
+	<link href="bootstrap/css/bootstrap.css" rel="stylesheet" />
+	<link href="datepicker/css/datepicker.css" rel="stylesheet" />
+	<link href="assets/css/bootstrap-united.css" rel="stylesheet" />
+
+	<style>
+	.green {
+		font-weight: bold;
+		color: green;
+	}
+
+	.message {
+		margin-bottom: 10px;
+	}
+
+	.error {
+		color: #ff0000;
+		font-size: 0.9em;
+		font-weight: bold;
+	}
+
+	.errorblock {
+		color: #000;
+		background-color: #ffEEEE;
+		border: 3px solid #ff0000;
+		padding: 8px;
+		margin: 16px;
+	}
+	</style>
+</head>
+<body>
+
+	<div class="container">
+		<div class="jumbotron">
+			<div>
+				<h1>Welcome to Registration</h1>
+			</div>
+		</div>
+
+		<div></div>
+	</div>
+
+	<div th:if="${message}">
+		<div class="message green">[[${message}]]</div>
+	</div>
+
+	<div class="col-lg-6 col-lg-offset-3">
+		<div class="well">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6">
+						<form id="myForm" th:object="${user}" method="post"
+							class="bs-example form-horizontal" commandName="user">
+							<fieldset>
+								<legend>DockerCon 2035 Signup</legend>
+
+								<div class="form-group">
+									<label for="userNameInput" class="col-lg-3 control-label">User
+										Name</label>
+									<div class="col-lg-9">
+										<input type="text" class="form-control" th:field="*{userName}"
+											id="userNameInput" placeholder="User Name" />
+										<ul th:each="error : ${#fields.errors('userName')}">
+											<li th:text="${error}" th:class="error"></li>
+										</ul>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="passwordInput" class="col-lg-3 control-label">Password</label>
+									<div class="col-lg-9">
+										<input type="password" class="form-control"
+										th:field="*{password}" id="passwordInput" placeholder="Password" />
+										<ul th:each="error : ${#fields.errors('password')}">
+											<li th:text="${error}" th:class="error"></li>
+										</ul>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="firstNameInput" class="col-lg-3 control-label">First
+										Name</label>
+									<div class="col-lg-9">
+										<input type="text" class="form-control" th:field="*{firstName}"
+											id="firstNameInput" placeholder="First Name" />
+										<ul th:each="error : ${#fields.errors('firstName')}">
+											<li th:text="${error}" th:class="error"></li>
+										</ul>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="lastNameInput" class="col-lg-3 control-label">Last
+										Name</label>
+									<div class="col-lg-9">
+										<input type="text" class="form-control" th:field="*{lastName}"
+											id="lastNameInput" placeholder="Last Name" />
+										<ul th:each="error : ${#fields.errors('lastName')}">
+											<li th:text="${error}" th:class="error"></li>
+										</ul>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="dateOfBirthInput" class="col-lg-3 control-label">Date
+										of Birth</label>
+									<div class="date form_date col-lg-9" data-date-format="mm/dd/yyyy" data-date-viewmode="years">
+										<input type="text" class="form-control"											
+											th:field="*{dateOfBirth}" id="dateOfBirthInput"
+											placeholder="Date of Birth" />
+										<ul th:each="error : ${#fields.errors('dateOfBirth')}">
+											<li th:text="${error}" th:class="error"></li>
+										</ul>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="emailAddressInput" class="col-lg-3 control-label">Email
+										Address</label>
+									<div class="col-lg-9">
+										<input type="text" class="form-control"
+											th:field="*{emailAddress}" id="emailAddressInput"
+											placeholder="Email Address" />
+										<ul th:each="error : ${#fields.errors('emailAddress')}">
+											<li th:text="${error}" class="error"></li>
+										</ul>
+									</div>
+								</div>
+
+								<div class="col-lg-9 col-lg-offset-3">
+									<button class="btn btn-default">Cancel</button>
+
+									<button class="btn btn-primary" data-toggle="modal"
+										data-target="#themodal">Submit</button>
+									<div id="themodal" class="modal fade" data-backdrop="static">									
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal"
+														aria-hidden="true">&times;</button>
+													<h3>Signup Form Submission</h3>
+												</div>
+												<div class="modal-body">
+													<p>Are you sure you want to do this?</p>
+													<div class="progress progress-striped active">
+														<div id="doitprogress" class="progress-bar"></div>
+													</div>
+												</div>
+												<div class="modal-footer">
+													<a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
+													<input type="submit" value="Yes" id="yesbutton"
+														class="btn btn-primary" data-loading-text="Saving.."
+														data-complete-text="Submit Complete!">
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+							</fieldset>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		$(function() {
+			$('#dateOfBirthInput').datepicker();
+		});
+	</script>
+
+	<script type="text/javascript">
+		$(function() {
+			var yesButton = $("#yesbutton");
+			var progress = $("#doitprogress");		
+			
+			yesButton.click(function() {		
+				yesButton.button("loading");
+
+				var counter = 0;
+				var countDown = function() {
+					counter++;
+					if (counter == 11) {
+						yesButton.button("complete");
+					} else {
+						progress.width(counter * 10 + "%");
+						setTimeout(countDown, 100);
+					}
+				};
+				
+				setTimeout(countDown, 100);
+			});
+			
+		});
+	</script>
+
+
+</body>
+</html>

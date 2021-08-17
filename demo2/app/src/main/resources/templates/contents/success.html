@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+th:replace="~{layout/template :: layout(~{::body/content()})}">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>Login Success</title>
+
+</head>
+<body>
+	
+	<!-- 
+	<legend>User Login Success</legend>
+	 -->
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title">DockerCon 2035 Login success</h3>
+		</div>
+		<div class="panel-body">
+		<div class="alert alert-dismissable alert-success">
+              <button type="button" class="close" data-dismiss="alert">�</button>
+              <strong>Well done!</strong> You have successfully logged-into the system.<p>
+            </div>
+		</div>
+	</div>
+	<div></div>
+	<div></div>
+	<a class="btn btn-primary" th:href="@{/login}">Login
+		as different user?</a>
+</body>
+</html>
